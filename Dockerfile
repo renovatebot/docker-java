@@ -1,10 +1,10 @@
-FROM renovate/base@sha256:d694b03ba0df63ac9b27445e76657d4ed62898d721b997372aab150ee84e07a1
+FROM renovate/ubuntu:18.04@sha256:f94cb492cb94e913186e477168dff87ab4c12c08a445d65d511c0cc628369d69
 
 USER root
 
 RUN apt-get update && apt-get install -y default-jre-headless && \
     rm -rf /var/lib/apt/lists/*
 
-USER ubuntu
+USER 1000
 
 RUN java --version
