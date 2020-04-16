@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y default-jre-headless && \
 
 USER 1000
 
-RUN java --version
+RUN java -version
