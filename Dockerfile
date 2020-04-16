@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y openjdk-8-jre-headless && \
 
 USER 1000
 
-RUN java --version
+RUN java -version
