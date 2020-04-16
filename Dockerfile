@@ -6,7 +6,6 @@ LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL name="renovate-java"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-java" \
       org.opencontainers.image.url="https://renovatebot.com" \
-      org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.version="${JAVA_VERSION}"
 
 
