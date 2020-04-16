@@ -70,7 +70,7 @@ jobs:
           cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
           docker buildx build \
             --load \
-            --build-arg JAVA_VERSION=${VERSION}
+            --build-arg JAVA_VERSION=${VERSION} \
             --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:${VERSION} \
             ${CACHE_TO} \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE}-${VERSION} \
