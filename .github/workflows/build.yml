@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: github-cleanup
-        uses: renovatebot/gh-action@v0
+        uses: renovatebot/internal-tools@v0
         continue-on-error: true
         with:
           command: github-cleanup
@@ -28,8 +28,15 @@ jobs:
   build:
     needs: [cleanup]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [8,11]
 
     timeout-minutes: 10
+
+    env:
+      VERSION: ${{ matrix.java-version }}
+      TAGS: ${{ matrix.java-version }}
 
     steps:
       - name: Set up Docker Buildx ${{ env.BUILDX_VERSION }}
@@ -44,33 +51,29 @@ jobs:
         uses: actions/cache@v1
         with:
           path: .cache
-          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile') }}
+          key: ${{ runner.os }}-${{ env.VERSION }}-docker-${{ hashFiles('Dockerfile') }}
 
       - name: Docker registry login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Set cache_to
         if: github.ref == 'refs/heads/master'
-        run: echo "::set-env name=CACHE_TO::--cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max"
+        run: echo "::set-env name=CACHE_TO::--cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE}-${VERSION},mode=max"
 
-      - name: prepare version
-        run: |
-          VERSION=$(cat Dockerfile | grep JAVA_VERSION)
-          SEMVER_REGEX="=(0|[1-9][0-9]*)"
-          if ! [[ "$VERSION" =~ $SEMVER_REGEX ]]; then
-            echo Not a semver tag - skipping
-            exit 1
-          fi
-          echo "::set-env name=VERSION::${BASH_REMATCH[1]}"
+      - name: prepare
+        if: env.VERSION == '11'
+        run:
+          echo "::set-env name=TAGS::latest;${TAGS}"
 
       - name: Build the Docker images
         run: |
           cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
           docker buildx build \
             --load \
+            --build-arg JAVA_VERSION=${VERSION}
             --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:${VERSION} \
             ${CACHE_TO} \
-            --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
+            --cache-from=renovate/docker-build-cache:${DOCKER_CACHE}-${VERSION} \
             $cache_from \
             .
 
@@ -78,9 +81,9 @@ jobs:
         run: docker run --rm -t ${DOCKER_REPO} java -version
 
       - name: Publish
-        uses: renovatebot/gh-action@v0
+        uses: renovatebot/internal-tools@v0
         with:
           command: "docker-publish"
           image: ${{ env.DOCKER_REPO }}
-          tags: latest;${{env.VERSION}}
-          dry-run: ${{github.ref != 'refs/heads/master'}}
+          tags: ${{ env.TAGS }}
+          dry-run: ${{ github.ref != 'refs/heads/master' }}

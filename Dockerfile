@@ -1,6 +1,14 @@
 FROM renovate/buildpack@sha256:d1b69a01a9bf536480a1fbfee979f5718edecc91d8e411bcd47bd9f6156844a9
 
-ENV JAVA_VERSION=8
+ARG JAVA_VERSION=8
+
+LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
+LABEL name="renovate-java"
+LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-java" \
+      org.opencontainers.image.url="https://renovatebot.com" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.version="${JAVA_VERSION}"
+
 
 RUN /usr/local/build/java.sh
 
