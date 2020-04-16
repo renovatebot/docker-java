@@ -49,7 +49,7 @@ jobs:
             .
 
       - name: Test the Docker images
-        run: docker run --rm -t ${DOCKER_REPO} java --version
+        run: docker run --rm -t ${DOCKER_REPO} java -version
 
       - name: Publish
         uses: renovatebot/gh-action@v0

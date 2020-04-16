@@ -56,7 +56,7 @@ jobs:
             .
 
       - name: Test the Docker images
-        run: docker run --rm -t ${DOCKER_REPO} java --version
+        run: docker run --rm -t ${DOCKER_REPO} java -version
 
       - name: Image history latest
         run: docker history ${DOCKER_REPO}
