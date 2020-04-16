@@ -11,6 +11,7 @@ env:
   PLATFORM: linux/amd64
   DOCKER_REPO: renovate/java
   DOCKER_CACHE: java
+  VERSION: 8
 # https://github.com/chalk/supports-color/issues/106
   FORCE_COLOR: true
 
@@ -49,7 +50,8 @@ jobs:
           cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
           docker buildx build \
             --load \
-            --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:11 \
+            --build-arg JAVA_VERSION=${VERSION} \
+            --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:${VERSION} \
             --cache-to=type=local,dest=.cache,mode=max \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
             $cache_from \
@@ -69,5 +71,5 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
-          tags: latest;8
+          tags: latest;${{env.VERSION}}
           dry-run: true

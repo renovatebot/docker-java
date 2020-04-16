@@ -2,7 +2,10 @@ FROM renovate/ubuntu:18.04@sha256:f94cb492cb94e913186e477168dff87ab4c12c08a445d6
 
 USER root
 
-RUN apt-get update && apt-get install -y openjdk-8-jre-headless && \
+ARG JAVA_VERSION=8
+ENV JAVA_VERSION=${JAVA_VERSION}
+
+RUN apt-get update && apt-get install -y openjdk-${JAVA_VERSION}-jre-headless && \
     rm -rf /var/lib/apt/lists/*
 
 USER 1000
