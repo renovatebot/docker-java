@@ -2,10 +2,7 @@ FROM renovate/buildpack@sha256:d1b69a01a9bf536480a1fbfee979f5718edecc91d8e411bcd
 
 ARG JAVA_VERSION=8
 
-LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
-LABEL name="renovate-java"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-java" \
-      org.opencontainers.image.url="https://renovatebot.com" \
       org.opencontainers.image.version="${JAVA_VERSION}"
 
 
