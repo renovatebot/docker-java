@@ -61,7 +61,7 @@ jobs:
             echo Not a semver tag - skipping
             exit 1
           fi
-          echo "::set-env name=VERSION::${BASH_REMATCH[0]}"
+          echo "::set-env name=VERSION::${BASH_REMATCH[1]}"
 
       - name: Build the Docker images
         run: |
