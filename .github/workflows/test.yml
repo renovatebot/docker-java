@@ -69,5 +69,5 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
-          tags: latest;11
+          tags: latest;8
           dry-run: true
