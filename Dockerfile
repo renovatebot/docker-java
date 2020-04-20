@@ -1,4 +1,4 @@
-FROM renovate/buildpack@sha256:1b937dcd416efb84b7be53b050d883bcfdf2f925ab81fd38211f0d75cb235186
+FROM renovate/buildpack:1@sha256:7e28ef186596dc293af15d6c63febf1e424c3e832702864944b498b3050cac52
 
 # renovate: datasource=docker depName=openjdk versioning=docker
 ARG JAVA_VERSION=8
@@ -7,6 +7,6 @@ LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-jav
       org.opencontainers.image.version="${JAVA_VERSION}"
 
 
-RUN /usr/local/build/java.sh
+RUN install-tool java
 
 USER 1000
