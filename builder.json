@@ -1,6 +1,5 @@
 {
   "image": "java",
   "startVersion": "8",
-  "cache": "docker-build-cache",
-  "versions": ["8", "11"]
+  "cache": "docker-build-cache"
 }
