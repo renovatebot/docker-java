@@ -2,5 +2,5 @@
   "image": "java",
   "startVersion": "8",
   "cache": "docker-build-cache",
-  "ignoredVersions": ["18"]
+  "ignoredVersions": ["9", "10", "18"]
 }
