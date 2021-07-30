@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=openjdk versioning=docker
 ARG JAVA_VERSION=8
 
-FROM renovate/buildpack:5-java@sha256:377b9f580cc9db0ee15d3ada929522bbc537d648b807e72cde5f0236295efd42
+FROM renovate/buildpack:5-java@sha256:27c920146cebfdc5f3371f144a1e14a13ae99cdae17128e363beac2ed5d600ea
 
 ARG JAVA_VERSION
 
