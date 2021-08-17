@@ -22,7 +22,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build and Publish
-        uses: renovatebot/internal-tools@547bf64106f5522dca8e7fcb955bcf62437934a9 # renovate: tag=v1.7.10
+        uses: renovatebot/internal-tools@2e877d33a28f7e365f2070631c1ef455a12636fb # renovate: tag=v1.7.11
         with:
           command: "docker-builder"
           dry-run: ${{github.ref != 'refs/heads/main'}}
