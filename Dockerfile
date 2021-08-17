@@ -1,4 +1,4 @@
-# renovate: datasource=adoptium-java
+# renovate: datasource=adoptium-java depName=java
 ARG JAVA_VERSION=8.0.302+8
 
 FROM renovate/buildpack:5-java@sha256:85f0817da310a13182980611f19afbf141f236b9151421794f65de8e1cda1dc3
