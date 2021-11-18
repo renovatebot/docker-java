@@ -1,7 +1,7 @@
 # renovate: datasource=adoptium-java depName=java
 ARG JAVA_VERSION=8.0.312+7
 
-FROM renovate/buildpack:5@sha256:9f2e303076e5758bd4e30be4bd28ecd4ee5b4512deb68cc8887a2ba5c5746919
+FROM renovate/buildpack:5@sha256:7f78c57c9926a672f7ed7b139aadabfa1eddf2d3a05056636926e10660c7645c
 
 ARG JAVA_VERSION
 
